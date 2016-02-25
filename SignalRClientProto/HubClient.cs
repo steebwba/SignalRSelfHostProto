@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.SignalR.Client;
 using System;
+using System.Configuration;
 
 namespace SignalRClientProto
 {
@@ -7,7 +8,10 @@ namespace SignalRClientProto
     {
         static void Main(string[] args)
         {
-            var connection = new HubConnection("http://localhost:8080/");
+            var ip = ConfigurationManager.AppSettings["HostIP"];
+            var port = ConfigurationManager.AppSettings["HostPort"];
+            var connection = new HubConnection($"http://{ip}:{port}/");
+
             //Make proxy to hub based on hub name on server
             var myHub = connection.CreateHubProxy("ProtoHub");
             
